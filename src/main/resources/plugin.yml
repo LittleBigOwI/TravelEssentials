@@ -1,0 +1,13 @@
+name: TravelEssentials
+version: ${project.version}
+main: net.philocraft.TravelEssentials
+api-version: 1.19
+authors: [ LittleBigOwl ]
+description: A simple, customizable tp plugin
+website: littlebigowl.dev
+prefix: TravelEssentials
+
+commands:
+  
+permissions:
+  
