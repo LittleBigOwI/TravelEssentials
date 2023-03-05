@@ -4,15 +4,15 @@ import org.bukkit.command.CommandSender;
 
 import net.philocraft.constants.Colors;
 
-public class InvalidWorldException {
+public class InvalidSenderException {
     
     private String cause;
 
-    public InvalidWorldException() {
-        this.cause = Colors.FAILURE.getChatColor() + "You aren't in the right world.";
+    public InvalidSenderException() {
+        this.cause = Colors.FAILURE.getChatColor() + "Invalid sender type.";
     }
 
-    public InvalidWorldException(String cause) {
+    public InvalidSenderException(String cause) {
         this.cause = Colors.FAILURE.getChatColor() + cause;
     }
 

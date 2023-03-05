@@ -1,7 +1,10 @@
 package net.philocraft;
 
+import java.sql.SQLException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.philocraft.commands.TpaCommand;
 import net.philocraft.models.Database;
 
 public final class TravelEssentials extends JavaPlugin {
@@ -16,12 +19,21 @@ public final class TravelEssentials extends JavaPlugin {
     public void onEnable() {
         database = Database.init(this);
 
-        this.getLogger().info("Plugion enabled.");
+        //!REGSITER COMMANDS
+        this.getCommand("tpa").setExecutor(new TpaCommand());
+
+        try {
+            database.loadTeleports();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        this.getLogger().info("Plugin enabled.");
     }
 
     @Override
     public void onDisable() {
-        this.getLogger().info("Plugion disabled.");
+        this.getLogger().info("Plugin disabled.");
     }
 
 }

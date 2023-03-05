@@ -36,12 +36,7 @@ public class Database {
             "CREATE TABLE IF NOT EXISTS Teleports(" +
             "id int NOT NULL UNIQUE AUTO_INCREMENT, " +
             "uuid TEXT NOT NULL, " +
-            "target TEXT NOT NULL, " +
-            "x FLOAT NOT NULL, " +
-            "y FLOAT NOT NULL, " +
-            "z FLOAT NOT NULL, " +
-            "yaw FLOAT NOT NULL, " +
-            "pitch FLOAT NOT NULL);"
+            "target TEXT NOT NULL); " 
         );
     }
 
@@ -100,7 +95,7 @@ public class Database {
             count++;
         }
 
-        this.plugin.getLogger().info("Loaded " + count + " teleportaion requests");
+        this.plugin.getLogger().info("Loaded " + count + " teleportaion requests.");
     }
 
     public int getMaxRequests() {

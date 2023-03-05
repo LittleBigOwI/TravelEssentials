@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.philocraft.TravelEssentials;
+import net.philocraft.components.WarningComponent;
+import net.philocraft.constants.Colors;
 
 public class TeleportationRequest {
     
@@ -27,7 +29,7 @@ public class TeleportationRequest {
         if(insert) {
             try {
                 TravelEssentials.getDatabase().updateStatement(
-                    "INSERT INTO Teleports(uuid, name, reverse) VALUES('" + 
+                    "INSERT INTO Teleports(uuid, target, reverse) VALUES('" + 
                     uuid + "', '" + 
                     target + "', " +
                     reverse + ");"
@@ -69,6 +71,31 @@ public class TeleportationRequest {
         } else {
             target.teleport(player.getLocation());
         }
+    }
+
+    public void confirm() {
+        Player player = Bukkit.getPlayer(this.uuid);
+        Player target = Bukkit.getPlayer(this.target);
+
+        player.sendMessage(
+            Colors.SUCCESS.getChatColor() + "Teleportation request successfully sent to " + 
+            Colors.COMMON.getChatColor() + target.getName() + 
+            Colors.SUCCESS.getChatColor() + "."
+        );
+    }
+
+    public void send() {
+        Player player = Bukkit.getPlayer(this.uuid);
+        Player target = Bukkit.getPlayer(this.target);
+
+        new WarningComponent(
+            target,
+            new String[]{"", player.getName(), " wants to teleport to you. Accept? "},
+            "/tpaccept " + player.getUniqueId(),
+            "/tpdeny " + player.getUniqueId()
+        ).send();
+
+        this.confirm();
     }
 
 }

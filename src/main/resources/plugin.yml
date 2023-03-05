@@ -8,6 +8,12 @@ website: littlebigowl.dev
 prefix: TravelEssentials
 
 commands:
-  
+  tpa:
+    usage: /<command> [playerName]
+    description: Teleports to a player
+    permission: philocraft.teleports.tpa
+
 permissions:
-  
+  philocraft.teleports.tpa:
+    description: Allows tpa command
+    default: true
