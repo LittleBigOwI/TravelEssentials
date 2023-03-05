@@ -1,0 +1,6 @@
+# Database credentials to store teleportation requests
+database:
+  host: [DatabaseHost]
+  database: [DatabaseName]
+  user: [Username]
+  password: [UserPassword]
