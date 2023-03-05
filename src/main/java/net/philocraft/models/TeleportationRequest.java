@@ -58,6 +58,19 @@ public class TeleportationRequest {
         return online;
     }
 
+    public static void deleteRequest(UUID uuid, UUID target) {
+        ArrayList<TeleportationRequest> playerRequests = TeleportationRequest.requests.get(uuid);
+        
+        if(!(playerRequests == null || playerRequests.size() == 0)) {
+            for(int i = playerRequests.size()-1; i > -1; i--) {
+                if(playerRequests.get(i).getTargetUUID().equals(target)) {
+                    playerRequests.remove(i);
+                }
+            }
+
+        }
+    }
+
     public UUID getUUID() {
         return this.uuid;
     }
@@ -76,16 +89,7 @@ public class TeleportationRequest {
             target.teleport(player.getLocation());
         }
 
-        ArrayList<TeleportationRequest> playerRequests = TeleportationRequest.requests.get(this.uuid);
-        if(!(playerRequests == null || playerRequests.size() == 0)) {
-            for(int i = playerRequests.size()-1; i > -1; i--) {
-                Bukkit.getLogger().info(playerRequests.get(i).getTargetUUID().toString() + " -> " + this.target);
-                if(playerRequests.get(i).getTargetUUID().equals(this.target)) {
-                    playerRequests.remove(i);
-                }
-            }
-
-        }
+        TeleportationRequest.deleteRequest(this.uuid, this.target);
     }
 
     public void confirm() {
@@ -108,7 +112,7 @@ public class TeleportationRequest {
                 target,
                 new String[]{"", player.getName(), " wants to teleport to you. Accept? "},
                 "/tpaccept " + player.getUniqueId(),
-                "/tpdeny " + player.getUniqueId()
+                "/tpadeny " + player.getUniqueId()
             ).send();
 
         } else {

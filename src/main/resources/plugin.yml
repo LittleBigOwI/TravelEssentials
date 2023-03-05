@@ -23,6 +23,11 @@ commands:
     description: Send reverse teleportation request to a player
     permission: philocraft.teleports.tpahere
 
+  tpadeny:
+    usage: /<command> [playerName]
+    description: Deny teleportation request from player
+    permission: philocraft.teleports.tpadeny
+
 permissions:
   philocraft.teleports.tpa:
     description: Allows tpa command
@@ -34,4 +39,8 @@ permissions:
 
   philocraft.teleports.tpahere:
     description: Allows tpahere command
+    default: true
+
+  philocraft.teleports.tpadeny:
+    description: Allows tpadeny command
     default: true

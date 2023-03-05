@@ -1,6 +1,2 @@
-# Database credentials to store teleportation requests
-database:
-  host: [DatabaseHost]
-  database: [DatabaseName]
-  user: [Username]
-  password: [UserPassword]
+# Max teleportations requests per player at once
+maxTeleports: 5

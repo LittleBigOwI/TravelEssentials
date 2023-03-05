@@ -9,7 +9,7 @@ public class TeleportationRequestNotFoundException {
     private String cause;
 
     public TeleportationRequestNotFoundException() {
-        this.cause = Colors.FAILURE.getChatColor() + "Could not find a matching teleportaion request.";
+        this.cause = Colors.FAILURE.getChatColor() + "Could not find a matching teleportation request.";
     }
 
     public TeleportationRequestNotFoundException(String cause) {

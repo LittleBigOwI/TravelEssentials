@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import net.philocraft.constants.Colors;
 import net.philocraft.constants.Worlds;
 import net.philocraft.errors.InvalidArgumentsException;
 import net.philocraft.errors.InvalidSenderException;
@@ -30,7 +31,7 @@ public class TpacceptCommand implements CommandExecutor, TabCompleter {
         Player target = (Player) sender;
 
         if(!target.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
-            return new InvalidWorldException("You can only accept teleportation requests in the overworld").sendCause(sender);
+            return new InvalidWorldException("You can only accept teleportation requests in the overworld.").sendCause(sender);
         }
 
         if(args.length != 1) {
@@ -45,6 +46,16 @@ public class TpacceptCommand implements CommandExecutor, TabCompleter {
         }
 
         request.teleport();
+
+        target.sendMessage(
+            Colors.SUCCESS.getChatColor() + "Accept teleportation request from " + 
+            Colors.COMMON.getChatColor() + player.getName() +
+            Colors.SUCCESS.getChatColor() + "."
+        );
+        player.sendMessage(
+            Colors.COMMON.getChatColor() + target.getName() + 
+            Colors.SUCCESS.getChatColor() + " has accepted your teleportation request."
+        );
         return true;
     }
 
