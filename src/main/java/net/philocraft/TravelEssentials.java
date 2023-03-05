@@ -6,11 +6,19 @@ import net.philocraft.commands.TpaCommand;
 import net.philocraft.commands.TpacceptCommand;
 import net.philocraft.commands.TpadenyCommand;
 import net.philocraft.commands.TpahereCommand;
+import net.philocraft.models.Database;
 
 public final class TravelEssentials extends JavaPlugin {
 
+    private static Database database;
+
+    public static Database getDatabase() {
+        return database;
+    }
+
     @Override
     public void onEnable() {
+        database = Database.init(this);
     
         //!REGSITER COMMANDS
         this.getCommand("tpa").setExecutor(new TpaCommand());

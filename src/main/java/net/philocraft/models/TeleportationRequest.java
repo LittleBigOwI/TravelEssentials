@@ -71,6 +71,18 @@ public class TeleportationRequest {
         }
     }
 
+    public static ArrayList<TeleportationRequest> getTeleportationRequests(UUID uuid) {
+        ArrayList<TeleportationRequest> playerRequests = requests.get(uuid);
+        if(playerRequests == null){
+            return new ArrayList<>();
+        }
+        return playerRequests;
+    }
+
+    public static void clearTeleportationRequests(UUID uuid) {
+        requests.put(uuid, new ArrayList<>());        
+    }
+
     public UUID getUUID() {
         return this.uuid;
     }

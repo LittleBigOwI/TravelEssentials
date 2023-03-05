@@ -14,7 +14,9 @@ import net.philocraft.constants.Worlds;
 import net.philocraft.errors.InvalidArgumentsException;
 import net.philocraft.errors.InvalidSenderException;
 import net.philocraft.errors.InvalidWorldException;
+import net.philocraft.errors.MaximumTeleportationRequestException;
 import net.philocraft.errors.PlayerNotFoundException;
+import net.philocraft.models.Database;
 import net.philocraft.models.TeleportationRequest;
 
 public class TpahereCommand implements CommandExecutor, TabCompleter {
@@ -48,6 +50,13 @@ public class TpahereCommand implements CommandExecutor, TabCompleter {
 
         if(!target.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
             return new InvalidWorldException("The specified player is not in the overworld.").sendCause(sender);
+        }
+
+        ArrayList<TeleportationRequest> playerRequests = TeleportationRequest.getTeleportationRequests(player.getUniqueId());
+
+        if(playerRequests.size() >= Database.getMaxTeleports()) {
+            TeleportationRequest.clearTeleportationRequests(player.getUniqueId());
+            return new MaximumTeleportationRequestException("The maximum number of requests was reached. Your requests have been cleared.").sendCause(sender);
         }
 
         TeleportationRequest request = new TeleportationRequest(player.getUniqueId(), target.getUniqueId(), true);
