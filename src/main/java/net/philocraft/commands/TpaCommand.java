@@ -50,7 +50,7 @@ public class TpaCommand implements CommandExecutor, TabCompleter {
             return new InvalidWorldException("The specified player is not in the overworld.").sendCause(sender);
         }
 
-        TeleportationRequest request = new TeleportationRequest(player.getUniqueId(), target.getUniqueId(), false, true);
+        TeleportationRequest request = new TeleportationRequest(player.getUniqueId(), target.getUniqueId(), false);
         request.send();
 
         return true;

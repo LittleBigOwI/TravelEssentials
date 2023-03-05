@@ -1,5 +1,56 @@
 package net.philocraft.commands;
 
-public class TpacceptCommand {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
+
+import net.philocraft.constants.Worlds;
+import net.philocraft.errors.InvalidArgumentsException;
+import net.philocraft.errors.InvalidSenderException;
+import net.philocraft.errors.InvalidWorldException;
+import net.philocraft.errors.TeleportationRequestNotFoundException;
+import net.philocraft.models.TeleportationRequest;
+
+public class TpacceptCommand implements CommandExecutor, TabCompleter {
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        
+        if(!(sender instanceof Player && label.equalsIgnoreCase("tpaccept"))) {
+            return new InvalidSenderException("You need to be a player to use this command.").sendCause(sender);
+        }
+        
+        Player target = (Player) sender;
+
+        if(!target.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
+            return new InvalidWorldException("You can only accept teleportation requests in the overworld").sendCause(sender);
+        }
+
+        if(args.length != 1) {
+            return new InvalidArgumentsException().sendCause(sender);
+        }
+
+        Player player = Bukkit.getPlayer(UUID.fromString(args[0]));
+        TeleportationRequest request = TeleportationRequest.getTeleportationRequest(player, target);
+        
+        if(request == null) {
+            return new TeleportationRequestNotFoundException().sendCause(sender);
+        }
+
+        request.teleport();
+        return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return new ArrayList<>();
+    }
     
 }

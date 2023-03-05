@@ -10,10 +10,28 @@ prefix: TravelEssentials
 commands:
   tpa:
     usage: /<command> [playerName]
-    description: Teleports to a player
+    description: Send teleportation request to a player
     permission: philocraft.teleports.tpa
+
+  tpaccept:
+    usage: /<command> [playerUUID]
+    description: Accept teleportation request from a player
+    permission: philocraft.teleports.tpaccept
+
+  tpahere:
+    usage: /<command> [playerName]
+    description: Send reverse teleportation request to a player
+    permission: philocraft.teleports.tpahere
 
 permissions:
   philocraft.teleports.tpa:
     description: Allows tpa command
+    default: true
+
+  philocraft.teleports.tpaccept:
+    description: Allows tpaccept command
+    default: true
+
+  philocraft.teleports.tpahere:
+    description: Allows tpahere command
     default: true

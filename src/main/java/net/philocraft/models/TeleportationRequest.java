@@ -1,6 +1,5 @@
 package net.philocraft.models;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import net.philocraft.TravelEssentials;
 import net.philocraft.components.WarningComponent;
 import net.philocraft.constants.Colors;
 
@@ -21,25 +19,12 @@ public class TeleportationRequest {
     private UUID target;
     private boolean reverse;
 
-    public TeleportationRequest(UUID uuid, UUID target, boolean reverse, boolean insert) {
+    public TeleportationRequest(UUID uuid, UUID target, boolean reverse) {
         this.uuid = uuid;
         this.target = target;
         this.reverse = reverse;
 
-        if(insert) {
-            try {
-                TravelEssentials.getDatabase().updateStatement(
-                    "INSERT INTO Teleports(uuid, target, reverse) VALUES('" + 
-                    uuid + "', '" + 
-                    target + "', " +
-                    reverse + ");"
-                );
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            TeleportationRequest.putRequest(uuid, this);
-        }
+        TeleportationRequest.putRequest(this.uuid, this);
     }
 
     public static void putRequest(UUID uuid, TeleportationRequest request) {
@@ -48,6 +33,17 @@ public class TeleportationRequest {
         } else {
             requests.put(uuid, new ArrayList<>(Arrays.asList(request)));
         }
+    }
+
+    public static TeleportationRequest getTeleportationRequest(Player player, Player target) {
+        ArrayList<TeleportationRequest> playerRequests = requests.get(player.getUniqueId());
+
+        for(TeleportationRequest r : playerRequests) {
+            if(r.getTargetUUID().equals(target.getUniqueId())) {
+                return r;
+            }
+        }
+        return null;
     }
 
     public static boolean isOnline(Player player) {
@@ -62,6 +58,14 @@ public class TeleportationRequest {
         return online;
     }
 
+    public UUID getUUID() {
+        return this.uuid;
+    }
+
+    public UUID getTargetUUID() {
+        return this.target;
+    }
+
     public void teleport() {
         Player player = Bukkit.getPlayer(this.uuid);
         Player target = Bukkit.getPlayer(this.target);
@@ -70,6 +74,17 @@ public class TeleportationRequest {
             player.teleport(target.getLocation());
         } else {
             target.teleport(player.getLocation());
+        }
+
+        ArrayList<TeleportationRequest> playerRequests = TeleportationRequest.requests.get(this.uuid);
+        if(!(playerRequests == null || playerRequests.size() == 0)) {
+            for(int i = playerRequests.size()-1; i > -1; i--) {
+                Bukkit.getLogger().info(playerRequests.get(i).getTargetUUID().toString() + " -> " + this.target);
+                if(playerRequests.get(i).getTargetUUID().equals(this.target)) {
+                    playerRequests.remove(i);
+                }
+            }
+
         }
     }
 
@@ -88,12 +103,23 @@ public class TeleportationRequest {
         Player player = Bukkit.getPlayer(this.uuid);
         Player target = Bukkit.getPlayer(this.target);
 
-        new WarningComponent(
-            target,
-            new String[]{"", player.getName(), " wants to teleport to you. Accept? "},
-            "/tpaccept " + player.getUniqueId(),
-            "/tpdeny " + player.getUniqueId()
-        ).send();
+        if(!this.reverse) {
+            new WarningComponent(
+                target,
+                new String[]{"", player.getName(), " wants to teleport to you. Accept? "},
+                "/tpaccept " + player.getUniqueId(),
+                "/tpdeny " + player.getUniqueId()
+            ).send();
+
+        } else {
+            new WarningComponent(
+                target,
+                new String[]{"", player.getName(), " wants to teleport you. Accept? "},
+                "/tpaccept " + player.getUniqueId(),
+                "/tpdeny " + player.getUniqueId()
+            ).send();
+
+        }
 
         this.confirm();
     }

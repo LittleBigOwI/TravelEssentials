@@ -1,32 +1,20 @@
 package net.philocraft;
 
-import java.sql.SQLException;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.philocraft.commands.TpaCommand;
-import net.philocraft.models.Database;
+import net.philocraft.commands.TpacceptCommand;
+import net.philocraft.commands.TpahereCommand;
 
 public final class TravelEssentials extends JavaPlugin {
 
-    private static Database database;
-
-    public static Database getDatabase() {
-        return database;
-    }
-
     @Override
     public void onEnable() {
-        database = Database.init(this);
-
+    
         //!REGSITER COMMANDS
         this.getCommand("tpa").setExecutor(new TpaCommand());
-
-        try {
-            database.loadTeleports();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.getCommand("tpaccept").setExecutor(new TpacceptCommand());
+        this.getCommand("tpahere").setExecutor(new TpahereCommand());
 
         this.getLogger().info("Plugin enabled.");
     }
