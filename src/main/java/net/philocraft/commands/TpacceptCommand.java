@@ -16,6 +16,7 @@ import net.philocraft.constants.Worlds;
 import net.philocraft.errors.InvalidArgumentsException;
 import net.philocraft.errors.InvalidSenderException;
 import net.philocraft.errors.InvalidWorldException;
+import net.philocraft.errors.PlayerNotFoundException;
 import net.philocraft.errors.TeleportationRequestNotFoundException;
 import net.philocraft.models.TeleportationRequest;
 
@@ -39,6 +40,11 @@ public class TpacceptCommand implements CommandExecutor, TabCompleter {
         }
 
         Player player = Bukkit.getPlayer(UUID.fromString(args[0]));
+        
+        if(player == null) {
+            return new PlayerNotFoundException().sendCause(sender);
+        }
+        
         TeleportationRequest request = TeleportationRequest.getTeleportationRequest(player, target);
         
         if(request == null) {
