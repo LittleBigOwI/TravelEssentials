@@ -11,11 +11,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import net.philocraft.constants.Colors;
-import net.philocraft.constants.Worlds;
-import net.philocraft.errors.InvalidArgumentsException;
-import net.philocraft.errors.InvalidSenderException;
-import net.philocraft.errors.InvalidWorldException;
+import dev.littlebigowl.api.constants.Colors;
+import dev.littlebigowl.api.constants.Worlds;
+import dev.littlebigowl.api.errors.InvalidArgumentsException;
+import dev.littlebigowl.api.errors.InvalidSenderException;
+import dev.littlebigowl.api.errors.InvalidWorldException;
 import net.philocraft.errors.PlayerNotFoundException;
 import net.philocraft.errors.TeleportationRequestNotFoundException;
 import net.philocraft.models.TeleportationRequest;
@@ -55,11 +55,11 @@ public class TpacceptCommand implements CommandExecutor, TabCompleter {
 
         target.sendMessage(
             Colors.SUCCESS.getChatColor() + "Accept teleportation request from " + 
-            Colors.COMMON.getChatColor() + player.getName() +
+            Colors.INFO.getChatColor() + player.getName() +
             Colors.SUCCESS.getChatColor() + "."
         );
         player.sendMessage(
-            Colors.COMMON.getChatColor() + target.getName() + 
+            Colors.INFO.getChatColor() + target.getName() + 
             Colors.SUCCESS.getChatColor() + " has accepted your teleportation request."
         );
         return true;

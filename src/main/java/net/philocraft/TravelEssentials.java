@@ -1,24 +1,20 @@
 package net.philocraft;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import dev.littlebigowl.api.EssentialsAPI;
 import net.philocraft.commands.TpaCommand;
 import net.philocraft.commands.TpacceptCommand;
 import net.philocraft.commands.TpadenyCommand;
 import net.philocraft.commands.TpahereCommand;
-import net.philocraft.models.Database;
 
 public final class TravelEssentials extends JavaPlugin {
 
-    private static Database database;
-
-    public static Database getDatabase() {
-        return database;
-    }
+    public static final EssentialsAPI api = (EssentialsAPI) Bukkit.getServer().getPluginManager().getPlugin("EssentialsAPI");
 
     @Override
     public void onEnable() {
-        database = Database.init(this);
     
         //!REGSITER COMMANDS
         this.getCommand("tpa").setExecutor(new TpaCommand());

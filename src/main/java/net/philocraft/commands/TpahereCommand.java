@@ -10,13 +10,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import net.philocraft.constants.Worlds;
-import net.philocraft.errors.InvalidArgumentsException;
-import net.philocraft.errors.InvalidSenderException;
-import net.philocraft.errors.InvalidWorldException;
+import dev.littlebigowl.api.constants.Worlds;
+import dev.littlebigowl.api.errors.InvalidArgumentsException;
+import dev.littlebigowl.api.errors.InvalidSenderException;
+import dev.littlebigowl.api.errors.InvalidWorldException;
+import net.philocraft.TravelEssentials;
 import net.philocraft.errors.MaximumTeleportationRequestException;
 import net.philocraft.errors.PlayerNotFoundException;
-import net.philocraft.models.Database;
 import net.philocraft.models.TeleportationRequest;
 
 public class TpahereCommand implements CommandExecutor, TabCompleter {
@@ -54,7 +54,7 @@ public class TpahereCommand implements CommandExecutor, TabCompleter {
 
         ArrayList<TeleportationRequest> playerRequests = TeleportationRequest.getTeleportationRequests(player.getUniqueId());
 
-        if(playerRequests.size() >= Database.getMaxTeleports()) {
+        if(playerRequests.size() >= TravelEssentials.api.teleports.getMaxTeleports()) {
             TeleportationRequest.clearTeleportationRequests(player.getUniqueId());
             return new MaximumTeleportationRequestException("The maximum number of requests was reached. Your requests have been cleared.").sendCause(sender);
         }

@@ -8,8 +8,8 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import net.philocraft.components.WarningComponent;
-import net.philocraft.constants.Colors;
+import dev.littlebigowl.api.components.WarningComponent;
+import dev.littlebigowl.api.constants.Colors;
 
 public class TeleportationRequest {
     
@@ -110,7 +110,7 @@ public class TeleportationRequest {
 
         player.sendMessage(
             Colors.SUCCESS.getChatColor() + "Teleportation request successfully sent to " + 
-            Colors.COMMON.getChatColor() + target.getName() + 
+            Colors.INFO.getChatColor() + target.getName() + 
             Colors.SUCCESS.getChatColor() + "."
         );
     }
