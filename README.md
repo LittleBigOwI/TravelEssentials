@@ -1,4 +1,4 @@
-# HomeEssentials
+# TravelEssentials
 
 A custom configurable spigot "tp" plugin. 
 
