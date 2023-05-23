@@ -55,11 +55,11 @@ public class TpacceptCommand implements CommandExecutor, TabCompleter {
 
         target.sendMessage(
             Colors.SUCCESS.getChatColor() + "Accept teleportation request from " + 
-            Colors.INFO.getChatColor() + player.getName() +
+            Colors.SUCCESS_DARK.getChatColor() + player.getName() +
             Colors.SUCCESS.getChatColor() + "."
         );
         player.sendMessage(
-            Colors.INFO.getChatColor() + target.getName() + 
+            Colors.SUCCESS_DARK.getChatColor() + target.getName() + 
             Colors.SUCCESS.getChatColor() + " has accepted your teleportation request."
         );
         return true;

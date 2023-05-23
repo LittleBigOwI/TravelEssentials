@@ -55,11 +55,11 @@ public class TpadenyCommand implements CommandExecutor, TabCompleter {
         
         target.sendMessage(
             Colors.SUCCESS.getChatColor() + "Denied teleportation request from " +
-            Colors.INFO.getChatColor() + player.getName() +
+            Colors.SUCCESS_DARK.getChatColor() + player.getName() +
             Colors.SUCCESS.getChatColor() + "."
         );
         player.sendMessage(
-            Colors.INFO.getChatColor() + target.getName() + 
+            Colors.FAILURE_DARK.getChatColor() + target.getName() + 
             Colors.FAILURE.getChatColor() + " denied your teleportation request."
         );
         return true;

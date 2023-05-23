@@ -110,7 +110,7 @@ public class TeleportationRequest {
 
         player.sendMessage(
             Colors.SUCCESS.getChatColor() + "Teleportation request successfully sent to " + 
-            Colors.INFO.getChatColor() + target.getName() + 
+            Colors.SUCCESS_DARK.getChatColor() + target.getName() + 
             Colors.SUCCESS.getChatColor() + "."
         );
     }
