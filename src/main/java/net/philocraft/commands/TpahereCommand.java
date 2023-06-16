@@ -31,7 +31,7 @@ public class TpahereCommand implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if(!player.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
-            return new InvalidWorldException("Teleportations can only be used in the overword.").sendCause(sender);
+            return new InvalidWorldException("Teleportations can only be used in the overworld.").sendCause(sender);
         }
 
         if(args.length != 1) {

@@ -32,7 +32,7 @@ public class TpadenyCommand implements CommandExecutor, TabCompleter {
         Player target = (Player) sender;
 
         if(!target.getWorld().equals(Worlds.OVERWORLD.getWorld())) {
-            return new InvalidWorldException("Teleportations can only be used in the overword.").sendCause(sender);
+            return new InvalidWorldException("Teleportations can only be used in the overworld.").sendCause(sender);
         }
 
         if(args.length != 1) {
